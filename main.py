@@ -1,4 +1,3 @@
-from ast import List
 import time
 import pygame
 from pygame import Surface
@@ -9,8 +8,8 @@ linethick = [3, 1, 1, 2, 1, 1, 2, 1, 1, 3]
 black = (0, 0, 0)
 
 
-def goodBoard():
-    goodBoard = [
+def good_board():
+    good_board = [
         [0, 0, 4, 0, 5, 0, 0, 0, 0],
         [9, 0, 0, 7, 3, 4, 6, 0, 2],
         [0, 0, 3, 6, 2, 1, 0, 4, 9],
@@ -21,11 +20,11 @@ def goodBoard():
         [0, 0, 9, 1, 8, 2, 5, 0, 3],
         [0, 2, 0, 0, 6, 0, 1, 0, 0]
     ]
-    return goodBoard
+    return good_board
 
 
-def badBoard():
-    badBoard = [
+def bad_board():
+    bad_board = [
         [7, 7, 0, 4, 0, 0, 1, 2, 0],
         [6, 0, 0, 0, 7, 5, 0, 0, 9],
         [0, 0, 0, 6, 0, 1, 0, 7, 8],
@@ -36,11 +35,11 @@ def badBoard():
         [1, 2, 0, 0, 0, 7, 4, 0, 0],
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ]
-    return badBoard
+    return bad_board
 
 
-def emptyBoard():
-    emptyBoard = [
+def empty_board():
+    empty_board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -51,7 +50,7 @@ def emptyBoard():
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
-    return emptyBoard
+    return empty_board
 
 
 def valid(bo: list[list[int]], num: int, pos: tuple[int]):
@@ -103,7 +102,7 @@ def echo(pygame: pygame, wn: Surface, text: str, pos: tuple[int], color=(0, 0, 0
     pygame.display.update()
 
 
-def initLines(pygame: pygame, wn: Surface):
+def init_lines(pygame: pygame, wn: Surface):
     # Across Lines
     for i in range(len(linecoor)):
         pygame.draw.line(
@@ -114,7 +113,7 @@ def initLines(pygame: pygame, wn: Surface):
             wn, black, (linecoor[i], 0), (linecoor[i], 466), linethick[i])
 
 
-def initNumbers(pygame: pygame, wn: Surface, bo: list[list[int]]):
+def init_numbers(pygame: pygame, wn: Surface, bo: list[list[int]]):
     for i in range(0, 9):  # row
         for j in range(0, 9):  # col
             if bo[j][i] != 0:
@@ -127,11 +126,11 @@ def initNumbers(pygame: pygame, wn: Surface, bo: list[list[int]]):
 
 def gui_print(pygame: pygame, wn: Surface, bo: list[list[int]], index: int):
     if index == 0:
-        const = goodBoard()
+        const = good_board()
     if index == 1:
-        const = badBoard()
+        const = bad_board()
     if index == 2:
-        const = emptyBoard()
+        const = empty_board()
 
     for i in range(0, 9):  # row
         for j in range(0, 9):  # col
@@ -178,19 +177,19 @@ def solve(pygame: pygame, wn: Surface, bo: list[list[int]], fast: bool, startTim
 def loop(fast=False, index=0):
     pygame.init()
     if index == 0:
-        board = goodBoard()
+        board = good_board()
     if index == 1:
-        board = badBoard()
+        board = bad_board()
     if index == 2:
-        board = emptyBoard()
+        board = empty_board()
 
     wn: Surface = pygame.display.set_mode((466, 519))
     pygame.display.set_caption("Sudoku")
 
     running = True
     wn.fill((255, 255, 255))
-    initLines(pygame, wn)
-    initNumbers(pygame, wn, board)
+    init_lines(pygame, wn)
+    init_numbers(pygame, wn, board)
     while running:
         pygame.time.delay(50)
         for event in pygame.event.get():
@@ -207,7 +206,7 @@ def loop(fast=False, index=0):
                         echo(pygame, wn, ' Done ', (77, 493), color=(
                             200, 200, 200), bgcolor=(0, 255, 0), size=75)
                     else:
-                        initNumbers(pygame, wn, board)
+                        init_numbers(pygame, wn, board)
                         echo(pygame, wn, '                 ', (119, 493),
                              color=(0, 0, 0), bgcolor=(255, 255, 255), size=75)
                         echo(pygame, wn, 'No solutions', (158, 493), color=(
